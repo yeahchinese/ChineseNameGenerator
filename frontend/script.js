@@ -6,7 +6,7 @@ document.getElementById('nameForm').addEventListener('submit', async (e) => {
   const birthDate = document.getElementById('birthDate').value;
   const nationality = document.getElementById('nationality').value;
 
-  const res = await fetch('https://your-backend.vercel.app/api/generate-name', {
+  const res = await fetch('https://chinese-name-generator-3u6mnm80e-yeahchineses-projects.vercel.app/', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ firstName, lastName, birthDate, nationality })
