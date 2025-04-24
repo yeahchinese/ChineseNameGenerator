@@ -1,0 +1,48 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: #f5f5f5;
+  position: relative;
+}
+
+canvas#inkCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+}
+
+.container {
+  padding: 2rem;
+  max-width: 700px;
+  margin: auto;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  margin-top: 5vh;
+}
+
+form {
+  display: grid;
+  gap: 1rem;
+}
+
+input, select, button {
+  padding: 0.7rem;
+  font-size: 1rem;
+}
+
+.result-section {
+  margin-top: 2rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.result-card {
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 1rem;
+}
