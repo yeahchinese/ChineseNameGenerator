@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Celestial Chinese Name Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- 动态背景 Canvas -->
+  <canvas id="inkCanvas"></canvas>
+
+  <div class="container">
+    <h1>Unveil Your Celestial Name</h1>
+
+    <form id="nameForm">
+      <input type="text" id="firstName" placeholder="First Name" required />
+      <input type="text" id="lastName" placeholder="Last Name" required />
+      <input type="date" id="birthDate" required />
+      <select id="nationality" required>
+        <option value="">Select Nationality</option>
+        <option>United States</option>
+        <option>United Kingdom</option>
+        <option>Canada</option>
+        <option>Other</option>
+      </select>
+      <button type="submit">Unveil</button>
+    </form>
+
+    <div id="results" class="result-section"></div>
+  </div>
+
+  <script src="bg.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
