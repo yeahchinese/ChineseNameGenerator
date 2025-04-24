@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Celestial Name Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #f0f4f5;
+      --accent: #93b5b3;
+      --wood: #7c4f3a;
+      --font-cn: 'Noto Serif SC', serif;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: var(--bg-color);
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 2rem;
+    }
+
+    header {
+      text-align: center;
+      border-bottom: 2px solid var(--wood);
+      padding-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: var(--wood);
+    }
+
+    form {
+      margin-top: 2rem;
+      display: grid;
+      gap: 1rem;
+    }
+
+    input, select, button {
+      padding: 0.8rem;
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: var(--accent);
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      position: relative;
+      overflow: hidden;
+    }
+
+    button::before {
+      content: '';
+      position: absolute;
+      background: radial-gradient(circle, #fff 10%, transparent 11%);
+      background-size: 10px 10px;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: -100%;
+      animation: inkSpread 1.2s ease forwards;
+      opacity: 0.2;
+    }
+
+    @keyframes inkSpread {
+      to {
+        left: 100%;
+      }
+    }
+
+    .result-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      justify-content: center;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid var(--accent);
+      border-radius: 10px;
+      padding: 1rem;
+      width: 220px;
+      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card h3 {
+      font-family: var(--font-cn);
+      font-size: 1.6rem;
+      color: var(--wood);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .celebration {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .celebration h2 {
+      font-size: 2rem;
+      color: var(--wood);
+    }
+
+    .share-buttons {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .share-buttons a img {
+      width: 36px;
+      height: 36px;
+      transition: transform 0.2s ease;
+    }
+
+    .share-buttons a img:hover {
+      transform: scale(1.2);
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Unveil Your Celestial Name</h1>
+      <p>Discover your poetic Chinese name inspired by ancient wisdom</p>
+    </header>
+
+    <section class="form-section">
+      <form id="nameForm">
+        <input type="text" id="firstName" placeholder="First Name" required />
+        <input type="text" id="lastName" placeholder="Last Name" required />
+        <input type="date" id="birthDate" required />
+        <select id="nationality" required>
+          <option value="">Select Nationality</option>
+          <option>United States</option>
+          <option>United Kingdom</option>
+          <option>Canada</option>
+          <option>France</option>
+          <option>Germany</option>
+          <option>Japan</option>
+          <option>South Korea</option>
+          <option>Other</option>
+        </select>
+        <button type="submit">Unveil Your Celestial Name</button>
+      </form>
+    </section>
+
+    <section class="result-section" id="results"></section>
+
+    <section class="celebration hidden" id="celebrationPage">
+      <h2>✨ You Found Your Name ✨</h2>
+      <p id="finalName"></p>
+      <button onclick="restart()">Choose Again</button>
+      <div class="share-buttons">
+        <a href="https://twitter.com/intent/tweet?text=I+just+got+my+celestial+Chinese+name!" target="_blank">
+          <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter">
+        </a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://example.com" target="_blank">
+          <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook">
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const names = [
+      {
+        name: "柳青",
+        meaning: "柳，柔而有节；青，春之色，象征生机与希望。",
+        source: "出自《诗经·小雅·青蝇》"
+      },
+      {
+        name: "洛妍",
+        meaning: "洛，古水名；妍，美好，妩媚。",
+        source: "出自《洛神赋》"
+      },
+      {
+        name: "辰溪",
+        meaning: "辰，星辰；溪，小河。象征高远与柔情。",
+        source: "灵感源于宋词“溪云初起日沉阁”"
+      }
+    ];
+
+    document.getElementById("nameForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const results = document.getElementById("results");
+      results.innerHTML = "";
+      document.getElementById("celebrationPage").classList.add("hidden");
+
+      names.forEach(name => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <h3>${name.name}</h3>
+          <p>${name.meaning}</p>
+          <small>${name.source}</small>
+        `;
+        card.addEventListener("click", () => {
+          document.getElementById("results").classList.add("hidden");
+          document.getElementById("celebrationPage").classList.remove("hidden");
+          document.getElementById("finalName").textContent = "Your name is: " + name.name;
+        });
+        results.appendChild(card);
+      });
+    });
+
+    function restart() {
+      document.getElementById("celebrationPage").classList.add("hidden");
+      document.getElementById("results").classList.remove("hidden");
+    }
+  </script>
+</body>
+</html>
